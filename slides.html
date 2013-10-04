@@ -14,9 +14,7 @@
 <br>
 </div>
 <div>Syntra-AB - &nbsp;2013 - 2014</div>
-<div>
-<br>
-</div>
+<div>https://github.com/netdata/syntra-linux</div>
 <div>
 <br>
 </div>
@@ -189,6 +187,9 @@
     <br>
 </li>
 <li>De keuze van Linux Distro mag je zelf kiezen, <br>echter ikzelf gebruik&nbsp;debian 7.0 (Wheezy)<br>
+    <br>
+</li>
+<li>Deze slides kan je ook terug vinden op github<br>https://github.com/netdata/syntra-linux<br>
 </li>
 </ul>
 </div>
@@ -249,70 +250,68 @@
     <br>
 </div>
 <div>
-    <ul>
-        <li>
-            <span>Als&nbsp;<span style="color: rgb(220, 220, 220); font-family: monospace; white-space: pre-wrap;">
-                <i>root</i> </span>password kiezen we voor&nbsp;<span style="font-family: monospace; white-space: pre-wrap;">
-                <font color="#dd7e6b">"p0wn3d"</font>
-                <font color="#dcdcdc">
+<ul>
+<li>Als&nbsp;<i>root</i> password kiezen we voor&nbsp;<font color="#dd7e6b">"p0wn3d"</font>
 
-</font>
-            </span>
-        </span>
-    </li>
-    <li>
-        <span>
-            <font face="monospace">
-                <span style="white-space: pre-wrap;">
-                    <font color="#dcdcdc">Maak een user aan genaamd </font>
-                    <span style="font-family: monospace;">
-                        <font color="#dd7e6b">"syntra"
+</li>
+<li>
+<span>Maak een user aan genaamd <font color="#dd7e6b">"syntra"</font>
 
-</font>
-                    </span>
-                </span>
-            </font>
-        </span>
-    </li>
-    <li>
-        <span>
-            <font face="monospace">
-                <span style="white-space: pre-wrap;">
-                    <span style="font-family: monospace;">
-                        <font color="#dcdcdc">Zorg dat de user </font>
-                        <font color="#dd7e6b">"syntra"</font>
-                        <font color="#dcdcdc"> <i>sudo</i> rechten heeft</font>
-                    </span>
-                    <font color="#dcdcdc">
-                        <br>
-                    </font>
-                </span>
-            </font>
-        </span>
-        <span>&nbsp;</span>
-    </li>
-    <li style="font-size: 36px; font-style: normal; font-variant: normal;">SSH key authenticatie</li>
-    <ul style="font-size: 36px; font-style: normal; font-variant: normal;">
-        <li>Zorg ervoor dat je team kan inloggen met SSH key<br>authentication voor de user&nbsp;<span style="font-family: monospace; white-space: pre-wrap;">
-            <font color="#dd7e6b">"syntra"</font>
-        </span>
-        <br>
-        <br>
-    </li>
+</span>
+</li>
+<li>
+<span>Zorg dat de user <font color="#dd7e6b">"syntra"</font> sudo rechten heeft<br>
+</span>
+<span>&nbsp;</span>
+</li>
+<li>SSH key authenticatie</li>
+<ul>
+<li>Zorg ervoor dat je team kan inloggen met SSH key<br>authentication voor de user<font color="#dd7e6b">&nbsp;"syntra"</font>
+<br>
+<br>
+</li>
 </ul>
 </ul>
 </div>
 </section>
 <section>
     <h2 style="font-style: normal; font-variant: normal;">MACHINE TEMPLATE</h2>
-    <div>
+<div>
+    <br>
+</div>
+<div>
+<ul>
+    <li>Deze machine is nu je template voor all je andere<br>machines</li>
+</ul>
+</div>
+</section>
+<section>
+    <h2 style="font-style: normal; font-variant: normal;">INSTALLEER EN CONFIGUREER: DNS</h2>
+<div>
+    <br>
+</div>
+<div>
+<ul>
+    <li>We hebben keuze uit meerdere software tools:<br>
         <br>
-    </div>
-    <div>
+    </li>
+    <ul>
+        <li>bind</li>
         <ul>
-            <li>Deze machine is nu je template voor all je andere<br>machines</li>
+            <li>Meest gebruikte DNS server ter wereld</li>
         </ul>
-    </div>
+        <li>powerdns</li>
+        <ul>
+            <li>Meest flexiebele DNS server ter wereld</li>
+        </ul>
+        <li>Tinydns<br>
+        </li>
+        <ul>
+            <li>Meest snelle DNS server ter wereld</li>
+        </ul>
+    </ul>
+</ul>
+</div>
 </section>
 <section>
     <h2 style="font-style: normal; font-variant: normal;">INSTALLEER EN CONFIGUREER: DNS</h2>
@@ -321,7 +320,7 @@
     </div>
     <div>
         <ul>
-            <li>Hiervoor gebruiken we bind&nbsp;</li>
+            <li style="text-align: center; ">Wij kiezen hier voor BIND</li>
         </ul>
     </div>
 </section>
@@ -333,51 +332,38 @@
 <div>
 <ul>
     <ul>
-        <li>Maak een forward lookup domain voor <i>
-            <font color="#dd7e6b">merger.local</font>
-        </i>
-        <br>
-        <br>
-    </li>
-    <li>Maak een reverse lookup domain voor&nbsp;</li>
-    <ul>
-        <li>
-            <font color="#dd7e6b">192.168.15.x </font>of <font color="#dd7e6b">192.168.25.x</font>
-            <br>
-            <br>
-        </li>
-    </ul>
-    <li>Forward de volgende domains naar je windows AD<br>
-    </li>
-    <ul>
-        <li>
-            <font color="#dd7e6b">contoso.local</font>
-            <br>
-        </li>
-        <li>
-            <font color="#dd7e6b">192.168.10.x</font> of <font color="#dd7e6b">192.168.20.x</font>
-            <br>
-            <br>
-        </li>
-    </ul>
-    <li>Zorg dat je DNS server zijn forwarders staan naar <font color="#dd7e6b">172.28.0.20</font>&nbsp;</li>
+<li>Maak een forward lookup domain voor <i>
+    <font color="#dd7e6b">merger.local</font>
+</i>
+<br>
+<br>
+</li>
+<li>Maak een reverse lookup domain voor&nbsp;</li>
+<ul>
+<li>
+<font color="#dd7e6b">192.168.15.x </font>of <font color="#dd7e6b">192.168.25.x</font>
+<br>
+<br>
+</li>
+</ul>
+<li>Forward de volgende domains naar je windows AD<br>
+</li>
+<ul>
+<li>
+<font color="#dd7e6b">contoso.local</font>
+<br>
+</li>
+<li>
+<font color="#dd7e6b">192.168.10.x</font> of <font color="#dd7e6b">192.168.20.x</font>
+<br>
+<br>
+</li>
+</ul>
+<li>Zorg dat je DNS server zijn forwarders staan naar <font color="#dd7e6b">172.28.0.20</font>&nbsp;</li>
 </ul>
 </ul>
 </div>
 </section>
-</section>
-<section>
-    <h2 style="font-style: normal; font-variant: normal;">INSTALLEER EN CONFIGUREER: DNS extra</h2>
-    <div>
-        <br>
-    </div>
-    <div>
-        <ul>
-            <li>
-                <br>
-            </li>
-        </ul>
-    </div>
 </section>
 </div>
 
