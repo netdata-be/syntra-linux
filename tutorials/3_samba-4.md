@@ -2,7 +2,7 @@
 
 **Step 1:** Install the Samba 4 Packages
 
-    apt-get install samba4
+    sudo apt-get install samba4
 
 The installation will throw out an error and apt will set the package to half installed. As the error isn’t relevant to us, we have to fix the package by manually setting the package to installed.
 
@@ -10,9 +10,9 @@ Edit `/var/lib/dpkg/status` and search for "`Package: samba4`"
 Replace `half-configured` with `installed`
 Now we are going to build the Active Directory Domain:
 
-    rm /etc/samba/smb.conf
-    /usr/share/samba/setup/provision \
-    --realm=merger.local \ 
+    sudo rm /etc/samba/smb.conf
+    sudo /usr/share/samba/setup/provision \
+    --realm=merger.local \
     --domain=MERGER \
     --adminpass='SyntraAB123' \
     --server-role=dc
@@ -21,11 +21,11 @@ This will set up all stuff needed for running a Domain (LDAP, Kerberos, …)
 
 Next step is to start Samba:
 
-    initctl start samba4
+    sudo initctl start samba4
 
 **Step 2:** Testing out our installation
 
-    apt-get install samba4-clients
+    sudo apt-get install samba4-clients
     smbclient -L localhost -U%
 
 The last command should display the currently defined and served shares on the server. Should look something like:
@@ -42,7 +42,7 @@ Active Directory uses DNS to discover a huge amount of services, mostly using `S
 In the previous tutorial we already installed, and configured bind.
 
 Therefore we have to undo some of the config we already did.
-This is because DNS will mainly be managed by samba using 
+This is because DNS will mainly be managed by samba using
 
 **Step 1:** Adapt the AppArmor configuration
 
@@ -66,13 +66,13 @@ Edit `/etc/apparmor.d/usr.sbin.named` and append the following entries:
 
 Now reload the configuration to take effect:
 
-    /etc/init.d/apparmor reload
+    sudo /etc/init.d/apparmor reload
 
 **Step 3:** Start and test Bind
 
 Run the following command to start Bind:
 
-    /etc/init.d/bind9 restart
+    sudo /etc/init.d/bind9 restart
 
 To make sure that everything worked as expected, run the following commands and watch their output. It should return a result on every command:
 
@@ -88,7 +88,7 @@ We want our clients to be able to update their DNS entries automatically. Edit `
 
 **Step 1:** Install the Kerberos Utilities
 
-    apt-get install krb5-user
+    sudo apt-get install krb5-user
 
 When asked for the default realm, enter merger.local and as host take the hostname you used. 
 Test out if Kerberos works by executing:
@@ -105,15 +105,15 @@ As Samba provides the correct time to it’s domain members we want to make sure
 
 **Step 1:** Install NTP
 
-    apt-get install ntp
+    sudo apt-get install ntp
 
 **Step 2:** Configure NTP
 
 do a initial time setup:
 
-    service ntp stop
-    ntpdate -B ntp.belnet.be
-    service ntp start
+    sudo service ntp stop
+    sudo ntpdate -B ntp.belnet.be
+    sudo service ntp start
 
 Check if everything works with:
 
@@ -135,8 +135,8 @@ If something did not work as expected (Domain not available), make sure that you
 
 To create shares you need to perform the following actions:
 
-mkdir /data/global
-chmod 777 /data/global
+sudo mkdir /data/global
+sudo chmod 777 /data/global
 Then add an entry to `/etc/samba/smb.conf`:
 
     [global]
@@ -146,7 +146,7 @@ Then add an entry to `/etc/samba/smb.conf`:
 
 Restart samba:
 
-    initctl restart samba4
+    sudo initctl restart samba4
 
 **Adding users**
 
@@ -177,7 +177,7 @@ If you have problems with access to files created by different users (even if th
 
 and restart samba:
 
-    service samba4 restart
+    sudo service samba4 restart
 
 
   [1]: http://en.wikipedia.org/wiki/AppArmor
