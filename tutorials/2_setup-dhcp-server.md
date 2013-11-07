@@ -46,10 +46,53 @@ While the client boots Watch the logfile via syslog: `tail -f /var/log/syslog`
 
 As you can see the machine with hostname `linux-syntra-client-1` received the IP address `10.10.10.100`
 
-**Step 6:** Enabling Dynamic DNS updates from the DHCP server
+### Dynamic DNS updates
 
 As you could see in the log file the DHCP server knows the name of the client requesting the an IP address.
-What we could do is automaticly add a forward lookup and reverse lookup to the DHCP server.
+What we could do is automatically add a forward lookup and reverse lookup to the DHCP server.
+
+**Step 1:** Generating a key
+
+The communication between DHCP server and DNS server is secured using a cryptographic key.
+
+Generate a key file:
+
+    sudo rndc-confgen -r /dev/urandom -a -c /etc/bind/ddns.key -k DDNS_KEY
+    sudo chown root:bind /etc/bind/ddns.key
+    sudo chmod 640 /etc/bind/ddns.key
+
+In a production environment you would never use `/dev/uramdom` because the ouput contain less entropy then `/dev/random`.
+
+**Step 2:** Adding the key to the DNS config
+
+Make sure your `/etc/bind/named.conf` local looks like this:
+
+    include "/etc/bind/ddns.key";
+    
+    zone "merger.local" {
+      type master;
+      allow-update { key DDNS_KEY; };
+      file "/etc/bind/zones.local/db.merger.local";
+    };
+
+    zone "25.168.192.in-addr.arpa" {
+      type master;
+      allow-update { key DDNS_KEY; };
+      file "/etc/bind/zones.local/db.25.168.192.in-addr.arpa";
+    };
+
+The changes are:
+
+ - include "/etc/bind/ddns.key";
+ - allow-update { key DDNS_KEY; };
+ 
+**Step 3:** Adding the key to the DHCP config
+
+The DHCP server needs the key as wel, so copy the directory:
+
+    sudo cp /etc/bind/ddns.key /etc/dhcp/
+    sudo chown root:root /etc/dhcp/ddns.key
+    sudo chmod 640 /etc/dhcp/ddns.key
 
 
 
