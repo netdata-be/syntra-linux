@@ -13,15 +13,15 @@ Add an extra interface to your virtual machine.
 
 Edit the file `/etc/default/isc-dhcp-server` and make sure `eth1` is added to the INTERFACES
 
-    INTERFACES="eth1
+    INTERFACES="eth1"
 
 **Step 4:** Adding a subnet to the config
 
 The config file for the dhcp server is `/etc/dhcp/dhcpd.conf`
 Now add a subnet config, here is an example:
 
-    subnet 192.168.20.00 netmask 255.255.255.0 {
-      range 192.168.20.100 192.168.20.200;
+    subnet 192.168.25.00 netmask 255.255.255.0 {
+      range 192.168.25.100 192.168.25.200;
       option domain-name-servers 192.168.20.1;
       option domain-name "merger.local";
       option routers 192.168.25.40;
