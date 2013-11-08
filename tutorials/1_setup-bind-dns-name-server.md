@@ -67,7 +67,7 @@ Now you will have to create the zonefile called `/etc/bind/zones.local/db.merger
 
     sudo mkdir /etc/bind/zones.local
     
-Now create the zone file, here is an example on how it could look like:
+Now create the zone file `/etc/bind/zones.local/db.merger.local`, here is an example on how it could look like:
 
     $TTL  3600      ; Zone TTL default = 1 hour.
     @ IN  SOA  ns1.merger.local. noc.netdata.be.  (
@@ -92,7 +92,7 @@ Next follows actual records.
 **Step 6:** Adding reverse lookup zone
 
 Now we are going to add the reverse lookup zone for the IP's used in our network.
-Append the following to the file `/etc/bind/zones.local/db.merger.local`
+Append the following to the file `/etc/bind/named.conf.local`
 
     zone "25.168.192.in-addr.arpa" {
       type master;
@@ -125,7 +125,7 @@ This makes it really easy to see what the next available IP would be.
 
 **Step 6:** Adding forward zones to the Windows AD
 
-Append the following to the file `/etc/bind/zones.local/db.merger.local`
+Append the following to the file  `/etc/bind/zones.local/db.merger.local`
     
     zone "contoso.local" {
       type forward;
