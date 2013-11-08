@@ -86,13 +86,56 @@ The changes are:
  - include "/etc/bind/ddns.key";
  - allow-update { key DDNS_KEY; };
  
-**Step 3:** Adding the key to the DHCP config
+**Step 3:** Adding the key to the DHCP folder
 
 The DHCP server needs the key as wel, so copy the directory:
 
     sudo cp /etc/bind/ddns.key /etc/dhcp/
     sudo chown root:root /etc/dhcp/ddns.key
     sudo chmod 640 /etc/dhcp/ddns.key
+    
+**Step 4:** Preparing the DHCP server for DDNS
 
+Add the following to your `/etc/dhcp/dhcpd.conf`
+
+    ddns-updates on;
+    ddns-update-style interim;
+    update-static-leases on;
+    
+***option domain-name***
+This options specifies the domain name, which is also used for DDNS.
+
+***ddns-update-style***
+This option should always be interim. The only other option is adhoc, but that one is outdated .
+
+***update-static-leases***
+By default the DHCP-Server doesn't update the DNS entries of static leases. If you want it to update them, you need to set this option to on. It can be that this causes some problems, that's why the manpage of dhcpd.conf doesn't recommend the use of it. If you experience problems, turn it off, but then you have to configure these hosts statically not only for DHCP, but also for DNS.
+
+**Step 5:** Adding zone config
+
+Also add the following to your config: `/etc/dhcp/dhcpd.conf`
+
+    include "/etc/dhcp/ddns.key";
+
+    zone merger.local. {
+      primary 127.0.0.1;
+      key DDNS_KEY;
+    }
+    
+    zone 25.168.192.in-addr.arpa. {
+      primary 127.0.0.1;
+      key DDNS_KEY;
+    }
+
+Now also add the following to your subnet
+
+    ddns-domainname "merger.local.";
+    do-forward-updates true;
+
+**Step 6:** reload your DHCP server
+
+    sudo service isc-dhcp-server restart
+    
+**Step 7:** Test your config
 
 
