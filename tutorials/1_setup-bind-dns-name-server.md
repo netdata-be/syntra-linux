@@ -125,7 +125,7 @@ This makes it really easy to see what the next available IP would be.
 
 **Step 6:** Adding forward zones to the Windows AD
 
-Append the following to the file  `/etc/bind/zones.local/db.merger.local`
+Append the following to the file  `/etc/bind/named.conf.local`
     
     zone "contoso.local" {
       type forward;
