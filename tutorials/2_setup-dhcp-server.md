@@ -20,9 +20,9 @@ Edit the file `/etc/default/isc-dhcp-server` and make sure `eth1` is added to th
 The config file for the dhcp server is `/etc/dhcp/dhcpd.conf`
 Now add a subnet config, here is an example:
 
-    subnet 10.10.10.0 netmask 255.255.255.0 {
-      range 10.10.10.100 10.10.10.200;
-      option domain-name-servers 10.10.10.1;
+    subnet 192.168.20.00 netmask 255.255.255.0 {
+      range 192.168.20.100 192.168.20.200;
+      option domain-name-servers 192.168.20.1;
       option domain-name "merger.local";
       option routers 192.168.25.40;
     }
@@ -40,11 +40,11 @@ Boot up a linux client in the same network as `eth1` from our DHCP server.
 While the client boots Watch the logfile via syslog: `tail -f /var/log/syslog`
 
     Nov  7 21:01:22 dns-dhcp dhcpd: DHCPDISCOVER from 08:00:27:91:18:57 via eth1
-    Nov  7 21:01:23 dns-dhcp dhcpd: DHCPOFFER on 10.10.10.100 to 08:00:27:91:18:57 (linux-syntra-client-1) via eth1
-    Nov  7 21:01:23 dns-dhcp dhcpd: DHCPREQUEST for 10.10.10.100 (10.10.10.1) from 08:00:27:91:18:57 (linux-syntra-client-1) via eth1
-    Nov  7 21:01:23 dns-dhcp dhcpd: DHCPACK on 10.10.10.100 to 08:00:27:91:18:57 (linux-syntra-client-1) via eth1
+    Nov  7 21:01:23 dns-dhcp dhcpd: DHCPOFFER on 192.168.20.100 to 08:00:27:91:18:57 (linux-syntra-client-1) via eth1
+    Nov  7 21:01:23 dns-dhcp dhcpd: DHCPREQUEST for 192.168.20.100 (192.168.20.1) from 08:00:27:91:18:57 (linux-syntra-client-1) via eth1
+    Nov  7 21:01:23 dns-dhcp dhcpd: DHCPACK on 192.168.20.100 to 08:00:27:91:18:57 (linux-syntra-client-1) via eth1
 
-As you can see the machine with hostname `linux-syntra-client-1` received the IP address `10.10.10.100`
+As you can see the machine with hostname `linux-syntra-client-1` received the IP address `192.168.20.100`
 
 ### Dynamic DNS updates
 
