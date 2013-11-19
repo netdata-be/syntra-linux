@@ -60,14 +60,13 @@ Add the following to the file: `/etc/bind/named.conf.local`
 
     zone "merger.local" {
       type master;
-      file "/etc/bind/zones.local/db.merger.local";
+      file "/var/lib/bind/db.merger.local";
     };
     
 Now you will have to create the zonefile called `/etc/bind/zones.local/db.merger.local`
 
-    sudo mkdir /etc/bind/zones.local
     
-Now create the zone file `/etc/bind/zones.local/db.merger.local`, here is an example on how it could look like:
+Now create the zone file `/var/lib/bind/db.merger.local`, here is an example on how it could look like:
 
     $TTL  3600      ; Zone TTL default = 1 hour.
     @ IN  SOA  ns1.merger.local. noc.netdata.be.  (
@@ -96,14 +95,14 @@ Append the following to the file `/etc/bind/named.conf.local`
 
     zone "25.168.192.in-addr.arpa" {
       type master;
-      file "/etc/bind/zones.local/db.25.168.192.in-addr.arpa";
+      file "/var/lib/bind/db.25.168.192.in-addr.arpa";
     };
 
 Note that the zone name is the reverse of our IP adresses.
 
 And create a zone file containing the reverse lookup records:
 
-`/etc/bind/zones.local/db.25.168.192.in-addr.arpa`
+`/var/lib/bind/db.25.168.192.in-addr.arpa`
 
     $TTL  3600      ; Zone TTL default = 1 hour.
     @ IN  SOA  ns1.merger.local. noc.netdata.be.  (
