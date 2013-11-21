@@ -206,6 +206,27 @@ Now that we have configured a basic setup let's change the default policy to DRO
 
     sudo iptables -P FORWARD DROP
 
+**Step 7:** Close our firewall for OUTPUT
+
+TODO: 
+
+**Step 8:** Make sure the rules survive a reboot
+
+By default iptables looses his config once you reboot your system.
+This is a bad idea since the default policy in iptables is ACCEPT,
+
+So if you would now reboot your gateway it is a serious security issue !!!
+
+Several options exist, but the best one is `iptables-persistent`
+
+    sudo apt-get install iptables-persistent
+
+Now every time you change the firewall you have to save the rules, again if you forget this step your new rule is not loaded at reboot.
+
+to save the iptable rules just run:
+
+    /etc/init.d/iptables-persistent save
+
 
   [1]: https://raw.github.com/netdata/syntra-linux/master/tutorials/img/syntra-fw.png
   [2]: http://eugene.oregontechsupport.com/articles/icmp.txt
