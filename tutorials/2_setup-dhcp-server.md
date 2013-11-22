@@ -65,7 +65,7 @@ In a production environment you would never use `/dev/uramdom` because the ouput
 
 **Step 2:** Adding the key to the DNS config
 
-Make sure your `/etc/bind/named.conf` local looks like this:
+Make sure your `/etc/bind/named.conf.local` looks like this:
 
     include "/etc/bind/ddns.key";
     
