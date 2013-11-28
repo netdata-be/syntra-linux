@@ -15,6 +15,7 @@ Now we are going to build the Active Directory Domain:
     --realm=merger.local \
     --domain=MERGER \
     --adminpass='SyntraAB123' \
+    --dns-backend= 'BIND9_DLZ' \
     --server-role=dc
 
 This will set up all stuff needed for running a Domain (LDAP, Kerberos, …)
