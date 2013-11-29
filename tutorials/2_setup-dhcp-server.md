@@ -31,7 +31,7 @@ Most options are self explaining
 
 Now start the the DHCP server
 
-    isc-dhcp-server restart
+    sudo service isc-dhcp-server restart
 
 **Step 5:** Testing your setup
 
