@@ -15,7 +15,8 @@ Now we are going to build the Active Directory Domain:
     --realm=merger.local \
     --domain=MERGER \
     --adminpass='SyntraAB123' \
-    --dns-backend= 'BIND9_DLZ' \
+    --dns-backend='BIND9_DLZ' \
+    --host-ip=192.168.25.39 \
     --server-role=dc
 
 This will set up all stuff needed for running a Domain (LDAP, Kerberos, …)
@@ -49,7 +50,7 @@ This is because DNS will mainly be managed by samba using
 
 Edit `/etc/bind/named.conf.local` and add the following line at beginning of the line:
 
-    include "/var/lib/samba/private/named.conf"
+    include "/var/lib/samba/private/named.conf";
 
 **Step 2:** Adapt the AppArmor configuration
 
@@ -57,12 +58,14 @@ As Ubuntu is securing it’s services using [AppArmor][1] we need to make sure t
 
 Edit `/etc/apparmor.d/usr.sbin.named` and append the following entries:
 
+    # Required for SAMBA Dynamic Zone Loading
     /var/lib/samba/private/** rkw,
     /var/lib/samba/private/dns/** rkw,
     /usr/lib/x86_64-linux-gnu/samba/bind9/** rm,
     /usr/lib/x86_64-linux-gnu/samba/gensec/** rm,
     /usr/lib/x86_64-linux-gnu/ldb/modules/ldb/** rm,
     /usr/lib/x86_64-linux-gnu/samba/ldb/** rm,
+    /var/tmp/* rw,
 
 
 Now reload the configuration to take effect:
@@ -91,7 +94,7 @@ We want our clients to be able to update their DNS entries automatically. Edit `
 
     sudo apt-get install krb5-user
 
-When asked for the default realm, enter merger.local and as host take the hostname you used. 
+When asked for the default realm, enter `MERGER.LOCAL` and as host take `192.168.25.39`.
 Test out if Kerberos works by executing:
 
     kinit administrator@MERGER.LOCAL
@@ -124,11 +127,11 @@ Check if everything works with:
 
 **Joining the Domain**
 
-Make sure that you use uppercase letters, like ‘DEMO.LOCAL’ as the domain name
+Make sure that you use uppercase letters, so use `MERGER.LOCAL` as the domain name
 
 **Testing the AD**
 
-Run ‘dsa.msc’ on your Windows client (after you installed the Windows Remote Server Administration Tools)
+Run `dsa.msc` on your Windows client (after you installed the Windows Remote Server Administration Tools)
 
 If something did not work as expected (Domain not available), make sure that your DNS resolution works smooth.
 
@@ -136,18 +139,17 @@ If something did not work as expected (Domain not available), make sure that you
 
 To create shares you need to perform the following actions:
 
-sudo mkdir /data/global
+sudo mkdir -p /data/global
 sudo chmod 777 /data/global
 Then add an entry to `/etc/samba/smb.conf`:
 
-    [global]
-    comment = Global share for all users
-    path = /data/global
-    read only = No
+    [Profiles]
+        path = /data/global
+        read only = no
 
 Restart samba:
 
-    sudo initctl restart samba4
+    sudo restart samba4
 
 **Adding users**
 
