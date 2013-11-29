@@ -153,7 +153,7 @@ Great we have now routing enabled, but our firewall is still open in all directi
 As you know the `INPUT` table contains all the rules which for traffic TOWARDS our firewall.
 So for example your SSH session is considered as `INPUT`
 
-We can allow established sessions to receive traffic:
+We can allow established and related sessions to receive traffic:
 
     sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 
@@ -164,7 +164,12 @@ When you receive a packet which has the state INVALID just drop the packet:
 The INVALID state means that the packet can't be identified or that it does not have any state.
 Next we would like to allow ssh traffic if it comes from our LAN (eth1)
 
-    sudo iptables -A INPUT -i eth1 -p tcp --dport 22  -j ACCEPT
+    sudo iptables -A INPUT -i eth1 -p tcp --dport 22  -j ACCEPT -m comment --comment "Allow Internal SSH connections"
+
+
+Now don't forget we also need to allow localhost otherwise it wil get blocked:
+
+    sudo iptables -A INPUT -i lo -j ACCEPT
 
 Next we will allow [ICMP][2]
 
