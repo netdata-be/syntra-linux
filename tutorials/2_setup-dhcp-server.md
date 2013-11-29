@@ -91,7 +91,7 @@ The changes are:
 The DHCP server needs the key as wel, so copy the directory:
 
     sudo cp /etc/bind/ddns.key /etc/dhcp/
-    sudo chown root:root /etc/dhcp/ddns.key
+    sudo chown root:dhcpd /etc/dhcp/ddns.key
     sudo chmod 640 /etc/dhcp/ddns.key
     
 **Step 4:** Preparing the DHCP server for DDNS
