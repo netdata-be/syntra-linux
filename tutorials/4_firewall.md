@@ -230,7 +230,7 @@ Now every time you change the firewall you have to save the rules, again if you 
 
 to save the iptable rules just run:
 
-    /etc/init.d/iptables-persistent save
+    service iptables-persistent save
 
 
   [1]: https://raw.github.com/netdata/syntra-linux/master/tutorials/img/syntra-fw.png
