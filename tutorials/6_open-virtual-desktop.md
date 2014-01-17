@@ -1,14 +1,16 @@
 ## Open Virtual Desktop
 
-**Step 1:** Create 3 Virtual Machines
+**Step 1:** Create / setup Virtual Machines
 
  - Hostname: `ovd-session`
      - Ubuntu 12.04 LTS
      - IP: 192.168.25.50
- - Hostname: `ovd-linux-1`
+ - Hostname: `ovd-appserver-linux-1`
      - Ubuntu 12.04 LTS
      - IP: 192.168.25.60
- - Hostname: `ovd-windows-1`
+
+You could also add a windows server to the open virtual desktop, this step hower is optional
+ - Hostname: `ovd-appserver-windows-1`
      - Microsoft® Windows® Server 2003/2008/2008 R2
      - IP: 192.168.25.61
 
@@ -35,11 +37,12 @@ GPG errors given by the previous command will be fixed in the next installation 
 
 ## Session Manager installation and configuration
 
-Package installation
-
-The Session Manager is a LAMP (Linux Apache MySQL PHP) system and can be used on an exising LAMP server.
+The following steps you have to execute on the session manager hostname: `ovd-session`
+and IP: `192.168.25.50`
 
 **Step 1:**  Install the `mysql-server` package:
+
+The Session Manager is a LAMP (Linux Apache MySQL PHP) system and can be used on an exising LAMP server.
 
     sudo apt-get install mysql-server
 
@@ -84,8 +87,46 @@ Then, you should be redirected to the main page:
 
 ![admin main page][8]
 
+## Web Client installation
+
+The following steps you have to execute on the session manager hostname: `ovd-session`
+and IP: `192.168.25.50`
+
+Install the package ulteo-ovd-web-client:
+
+    sudo apt-get install ulteo-ovd-web-client
+    
+The installer asks if you want to plug the Web Client with an existing Session Manager. It depends if you want to use this Web Client in a specific Ulteo OVD farm or if you want a generic web client.
+
+In our case we will anwer this question with `YES`
+
+When asked for the hostname / IP use the IP: `192.168.25.50`
+
+
 ## Application Server and File Server installation (using Subsystem)
 
+The following steps you have to execute on the session manager hostname: `ovd-appserver-linux-1` with IP: `192.168.25.60`
+
+Install the package ulteo-ovd-subsystem:
+
+    sudo apt-get install ulteo-ovd-subsystem
+
+When asked for the session host / IP enter the ip address of our session manager: `192.168.25.50`
+
+The configuration is now done. The system is going to donwload and uncompress the application system archive from the Session Manager your registered.
+
+Once done, you just have to restart the service:
+
+    sudo /etc/init.d/ulteo-ovd-subsystem restart
+
+Your server should appear in the Unregistered server page.
+![server unregisterd screenshot][9]
+
+
+## Some extra steps you could do
+
+ - Use your Samba AD as user base
+ - Configure Kerberos authentication with your Samba AD in order to have SSO
 
   [1]: https://raw2.github.com/netdata/syntra-linux/master/tutorials/img/ovd-setup.png
   [2]: https://raw2.github.com/netdata/syntra-linux/master/tutorials/img/sm_install_admin_login.png
@@ -95,3 +136,4 @@ Then, you should be redirected to the main page:
   [6]: https://raw2.github.com/netdata/syntra-linux/master/tutorials/img/sm_www_admin_login.png
   [7]: https://raw2.github.com/netdata/syntra-linux/master/tutorials/img/sm_install_admin_config_init.png
   [8]: https://raw2.github.com/netdata/syntra-linux/master/tutorials/img/sm_admin_main.png
+  [9]: https://raw2.github.com/netdata/syntra-linux/master/tutorials/img/sm_admin_server_unregistered.png
