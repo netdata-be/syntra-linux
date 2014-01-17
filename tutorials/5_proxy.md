@@ -179,6 +179,9 @@ Squid actually does a [MITMA][1] on the connection that is:
  3. Client trust the internal Certificate authority so no SSL warnings...
  4. Proxy builds SSL tunnel between proxy and the actual destination (e.g. : https://mail.google.com)
 
+If you don't know how TLS/SSL handshake is done look that this picture:
+![ssl-handshake][2]
+
 ***Step 1 :*** Creating a Self Signed ROOT certificate
 
     sudo mkdir /etc/squid3/certs
@@ -306,3 +309,4 @@ This will collect all logs and generate the reports
 
 
   [1]: http://en.wikipedia.org/wiki/Man-in-the-middle_attack
+  [2]: https://raw.github.com/netdata/syntra-linux/master/tutorials/img/tls-handshake.png
