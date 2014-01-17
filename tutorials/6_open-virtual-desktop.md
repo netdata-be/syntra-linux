@@ -54,12 +54,19 @@ A password for `root` will be asked.
     sudo apt-get install ulteo-ovd-session-manager
     
 * The installer asks for an admin login
+
 ![admin login screenshot][2]
+
 * And a password:
+
 ![Admin password][3]
+
 * which has to be confirmed:
+
 ![comfirm admin pwd][4]
+
 * According to the Archictecture documentation, a Susbsystem archive can be installed on the SM to simplify the Application Servers' deployements.
+
 ![enter image description here][5]
 
 **Step 4:** Configuration
@@ -70,9 +77,11 @@ The first step is to go to `http://192.168.25.50/ovd/admin` and authenticate you
 For the first time you log in, the system detects that it is not well configured so you are redirected to a basic setup page which will save a default configuration.
 
 You have to set the MySQL configuration. For instance, if you install MySQL on the same host as described previously, here is the configuration:
+
 ![admin config init][7]
 
 Then, you should be redirected to the main page:
+
 ![admin main page][8]
 
 ## Application Server and File Server installation (using Subsystem)
