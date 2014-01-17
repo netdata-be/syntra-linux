@@ -1,5 +1,7 @@
 ## Open Virtual Desktop
 
+[[TOC]]
+
 **Step 1:** Create / setup Virtual Machines
 
  - Hostname: `ovd-session`
