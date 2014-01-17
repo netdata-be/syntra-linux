@@ -61,10 +61,11 @@ After this has been completed a DEB package will appear in the parent directory.
 Now install the freshly build squid packages:
 
     cd ..
+    apt-get install squid-langpack ssl-cert
+    sudo dpkg -i squid3-common_3.1.19-1ubuntu3.12.04.2_all.deb
+    sudo dpkg -i squid-common_3.1.19-1ubuntu3.12.04.2_all.deb
     sudo dpkg -i squid_3.1.19-1ubuntu3.12.04.2_amd64.deb
     sudo dpkg -i squid3_3.1.19-1ubuntu3.12.04.2_amd64.deb
-    sudo dpkg -i squid-common_3.1.19-1ubuntu3.12.04.2_all.deb
-    sudo dpkg -i squid3-common_3.1.19-1ubuntu3.12.04.2_all.deb
 
 Verify the instalation:
 
