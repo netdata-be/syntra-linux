@@ -64,8 +64,8 @@ Now install the freshly build squid packages:
     apt-get install squid-langpack ssl-cert
     sudo dpkg -i squid3-common_3.1.19-1ubuntu3.12.04.2_all.deb
     sudo dpkg -i squid-common_3.1.19-1ubuntu3.12.04.2_all.deb
-    sudo dpkg -i squid_3.1.19-1ubuntu3.12.04.2_amd64.deb
     sudo dpkg -i squid3_3.1.19-1ubuntu3.12.04.2_amd64.deb
+    sudo dpkg -i squid_3.1.19-1ubuntu3.12.04.2_amd64.deb
 
 Verify the instalation:
 
@@ -85,7 +85,7 @@ Initialize cache…
  
 ***Step 2:*** Basic config file
 
-Edit the file `/etc/squid3/squid.conf` and add the following:
+Edit the file `/etc/squid3/squid.conf` remove all existing content and add the following:
 
     # ACL List
     acl manager proto cache_object
@@ -236,18 +236,18 @@ Now copy the file `/tmp/root-ca_to-import.pem` to your client and import this ce
 The latest version of Squid Analyzer now is version 5.3. 
 You can download it from here. After that, you can extract the source file.
 
-    tar zxcf squidanalyzer-5.3.tar.gz
+    tar -zxf squidanalyzer-5.3.tar.gz
 
 ***Step 2 :*** Install the software
 
     cd squidanalyzer-5.3/
     perl Makefile.PL
     make
-    make install
+    sudo make install
 
 ***Step 3 :*** Install apache
 
-    apt-get install apache2
+    sudo apt-get install apache2
     
 ***Step 4 :*** Configure apache
 
@@ -259,7 +259,7 @@ Edit `/etc/apache2/ports.conf` and change the `Listen` paramenter to this:
     
 Next we have to disable the default apache config:
 
-    a2dissite default
+    sudo a2dissite default
     
 Now create the following file : `/etc/apache2/sites-available/squidanalyzer`
 
